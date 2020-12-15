@@ -95,11 +95,14 @@ stdenv.mkDerivation rec {
 
     # (impure) cc wrapper around musl for interactive usuage
     for i in musl-gcc musl-clang ld.musl-clang; do
+      # replace bash line with /bin/sh to avoid direct bash and glibc dep
       moveToOutput bin/$i $dev
+      rm $dev/bin/$i
+      #sed -i '1c#!\/bin/sh' $dev/bin/$i
     done
     moveToOutput lib/musl-gcc.specs $dev
-    substituteInPlace $dev/bin/musl-gcc \
-      --replace $out/lib/musl-gcc.specs $dev/lib/musl-gcc.specs
+    #substituteInPlace $dev/bin/musl-gcc \
+    #  --replace $out/lib/musl-gcc.specs $dev/lib/musl-gcc.specs
 
     # provide 'iconv' utility, using just-built headers, libc/ldso
     $CC ${iconv_c} -o $out/bin/iconv \
