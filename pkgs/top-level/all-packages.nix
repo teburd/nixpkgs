@@ -20027,6 +20027,8 @@ with pkgs;
 
   segger-ozone = callPackage ../development/tools/misc/segger-ozone { };
 
+  segger-systemview = callPackage ../development/tools/misc/segger-systemview { };
+
   selene = callPackage ../development/tools/selene { };
 
   shadowenv = callPackage ../tools/misc/shadowenv {
